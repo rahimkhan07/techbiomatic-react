@@ -65,7 +65,7 @@ export default function CookieConsent() {
                 </div>
 
                 <span style={{ flex: 1, fontSize: '14px', fontWeight: 700, color: '#111827', lineHeight: 1.3 }}>
-                  We use cookies 🍪
+                  We use cookies
                 </span>
 
                 <button onClick={decline} aria-label="Close"
