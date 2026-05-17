@@ -48,18 +48,68 @@ export default function RequestService() {
     <section id="request-service" style={{ background: '#fff', padding: '80px 24px' }}>
       <div style={{ maxWidth: '720px', margin: '0 auto' }}>
 
-        {/* ── Heading ── */}
+        {/* ── Get in Touch banner ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={VP} transition={{ duration: 0.5 }}
-          style={{ textAlign: 'center', marginBottom: '48px' }}
+          style={{
+            background: 'linear-gradient(135deg, #DC2626 0%, #b91c1c 100%)',
+            borderRadius: '16px',
+            padding: '40px 36px',
+            textAlign: 'center',
+            marginBottom: '40px',
+            position: 'relative',
+            overflow: 'hidden',
+          }}
         >
-          <span className="tag" style={{ marginBottom: '16px', display: 'inline-flex' }}>Get In Touch</span>
-          <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', fontWeight: 700, color: '#111827', marginBottom: '12px', lineHeight: 1.2 }}>
+          {/* Subtle pattern overlay */}
+          <div style={{
+            position: 'absolute', inset: 0, opacity: 0.07,
+            backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
+            pointerEvents: 'none',
+          }} />
+
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              padding: '5px 14px', borderRadius: '100px', fontSize: '11px',
+              fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase',
+              background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.35)',
+              color: '#fff', marginBottom: '16px',
+            }}>
+              Get in Touch
+            </span>
+
+            <h2 style={{
+              fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)', fontWeight: 800,
+              color: '#fff', marginBottom: '16px', lineHeight: 1.2,
+            }}>
+              Discover the <span style={{ color: '#FFD6D6' }}>TECHBIOMATIC</span> Difference Today!
+            </h2>
+
+            <p style={{
+              color: 'rgba(255,255,255,0.88)', fontSize: '15px',
+              lineHeight: 1.8, maxWidth: '580px', margin: '0 auto',
+            }}>
+              Explore our full product range and learn how we can support your laboratory's success.
+              For inquiries, product details, or a consultation, please contact us. We look forward
+              to being your trusted partner in scientific and laboratory excellence.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* ── Section heading ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={VP} transition={{ duration: 0.5, delay: 0.05 }}
+          style={{ textAlign: 'center', marginBottom: '36px' }}
+        >
+          <h3 style={{ fontSize: 'clamp(1.4rem, 3vw, 1.9rem)', fontWeight: 700, color: '#111827', marginBottom: '10px', lineHeight: 1.2 }}>
             Request for Our <span style={{ color: '#DC2626' }}>Service</span>
-          </h2>
-          <div style={{ width: '56px', height: '4px', background: '#DC2626', borderRadius: '2px', margin: '0 auto 20px' }} />
-          <p style={{ color: '#6B7280', fontSize: '1rem', maxWidth: '500px', margin: '0 auto', lineHeight: 1.7 }}>
+          </h3>
+          <div style={{ width: '48px', height: '4px', background: '#DC2626', borderRadius: '2px', margin: '0 auto 14px' }} />
+          <p style={{ color: '#6B7280', fontSize: '14px', maxWidth: '480px', margin: '0 auto', lineHeight: 1.7 }}>
             Interested in our products and services? Fill out the form below and we will
             get back to you at the earliest.
           </p>

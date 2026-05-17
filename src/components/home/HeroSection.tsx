@@ -1,79 +1,79 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 
+// ── Slides ─────────────────────────────────────────────────
+// Place your images in /public/slides/ folder:
+//   /public/slides/slide1.jpg
+//   /public/slides/slide2.jpg
+// Until then, Unsplash fallbacks are used.
 const slides = [
   {
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80&fit=crop',
-    headline: 'WE ENGINEER',
-    subheadline: 'INTELLIGENT SOLUTIONS',
-    description: 'Techbiomatic Middle East delivers cutting-edge technology and engineering solutions that transform enterprises across the UAE and beyond.',
-    primaryBtn: { label: 'Explore Services', href: '/services' },
+    image: '/slides/slide1.jpg',
+    fallback: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1600&q=85&fit=crop',
+    tag: 'WELCOME TO TECHBIOMATIC',
+    headline1: 'Empowering Laboratories',
+    headline2: 'Advancing Research',
+    description:
+      'Your trusted partner in laboratory innovation, TECHBIOMATIC delivers top-tier equipment and solutions to advance research, healthcare, and academia.',
+    primaryBtn: { label: 'Explore Products', href: '/services' },
     secondaryBtn: { label: 'Contact Us', href: '/contact' },
   },
   {
-    image: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1600&q=80&fit=crop',
-    headline: 'AI & AUTOMATION',
-    subheadline: 'POWERING YOUR FUTURE',
-    description: 'Transform repetitive processes into smart workflows. Our AI solutions learn, adapt, and deliver measurable ROI from day one.',
-    primaryBtn: { label: 'AI Solutions', href: '/services#ai-automation' },
-    secondaryBtn: { label: 'See Projects', href: '/projects' },
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1600&q=80&fit=crop',
-    headline: 'CLOUD & SECURITY',
-    subheadline: 'BUILT FOR ENTERPRISE',
-    description: 'Migrate, modernize, and secure your infrastructure on AWS, Azure, and Google Cloud with enterprise-grade protection.',
-    primaryBtn: { label: 'Cloud Services', href: '/services#cloud' },
-    secondaryBtn: { label: 'Learn More', href: '/about' },
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1600&q=80&fit=crop',
-    headline: 'SMART INFRASTRUCTURE',
-    subheadline: 'CONNECTING THE FUTURE',
-    description: 'IoT-enabled smart building, city, and industrial infrastructure solutions that connect physical assets to digital intelligence.',
-    primaryBtn: { label: 'Infrastructure', href: '/services#smart-infrastructure' },
-    secondaryBtn: { label: 'Get a Quote', href: '/contact' },
+    image: '/slides/slide2.jpg',
+    fallback: 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=1600&q=85&fit=crop',
+    tag: 'CUTTING-EDGE SOLUTIONS',
+    headline1: 'Precision Instruments',
+    headline2: 'for Modern Science',
+    description:
+      'From biomedical devices to scientific software, we provide comprehensive solutions that meet the highest international standards for laboratories worldwide.',
+    primaryBtn: { label: 'Our Products', href: '/services' },
+    secondaryBtn: { label: 'About Us', href: '/about' },
   },
 ]
 
 const marqueeItems = [
-  '200+ Projects Delivered',
-  '50+ Enterprise Clients',
-  '12+ Industries Served',
-  '5+ Years of Excellence',
+  '15+ Years of Experience',
+  'Laboratory Equipment',
+  'Scientific Instruments',
+  'Biomedical Devices',
+  'Lab Consumables',
+  'Software Solutions',
+  'Global Reach',
   'ISO Certified',
-  'UAE Licensed',
-  '24/7 Support',
-  'NDA Protected',
-  'Dubai Headquartered',
-  'AI & Cloud Experts',
+  'Customer-Focused Service',
+  'Innovation & Expertise',
 ]
 
-const SLIDE_DURATION = 5000
+const SLIDE_DURATION = 6000
 
 export default function HeroSection() {
   const [current, setCurrent] = useState(0)
   const [direction, setDirection] = useState(1)
-  const [imagesLoaded, setImagesLoaded] = useState<boolean[]>(slides.map(() => false))
+  const [imgSrc, setImgSrc] = useState<string[]>(slides.map((s) => s.fallback))
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const currentRef = useRef(0)
 
   useEffect(() => { currentRef.current = current }, [current])
 
-  const goTo = useCallback((index: number, dir: number) => {
-    setDirection(dir); setCurrent(index)
+  // Try loading local images, fall back to Unsplash
+  useEffect(() => {
+    slides.forEach((slide, i) => {
+      const img = new Image()
+      img.src = slide.image
+      img.onload = () => setImgSrc((prev) => { const n = [...prev]; n[i] = slide.image; return n })
+    })
   }, [])
 
   const next = useCallback(() => {
-    const idx = (currentRef.current + 1) % slides.length
-    setDirection(1); setCurrent(idx)
+    setDirection(1)
+    setCurrent((c) => (c + 1) % slides.length)
   }, [])
 
   const prev = useCallback(() => {
-    const idx = (currentRef.current - 1 + slides.length) % slides.length
-    setDirection(-1); setCurrent(idx)
+    setDirection(-1)
+    setCurrent((c) => (c - 1 + slides.length) % slides.length)
   }, [])
 
   const resetTimer = useCallback(() => {
@@ -86,110 +86,141 @@ export default function HeroSection() {
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
   }, [resetTimer])
 
-  // Preload images
-  useEffect(() => {
-    slides.forEach((slide, i) => {
-      const img = new Image()
-      img.src = slide.image
-      img.onload = () => setImagesLoaded((prev) => { const n = [...prev]; n[i] = true; return n })
-    })
-  }, [])
-
   const manualNext = () => { next(); resetTimer() }
   const manualPrev = () => { prev(); resetTimer() }
-  const manualGoTo = (i: number) => { goTo(i, i > currentRef.current ? 1 : -1); resetTimer() }
+  const manualGoTo = (i: number) => {
+    setDirection(i > currentRef.current ? 1 : -1)
+    setCurrent(i)
+    resetTimer()
+  }
 
   const slide = slides[current]
 
-  const textVariants = {
-    enter: (dir: number) => ({ x: dir > 0 ? 60 : -60, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit:  (dir: number) => ({ x: dir > 0 ? -60 : 60, opacity: 0 }),
+  const slideVariants = {
+    enter: (dir: number) => ({ opacity: 0, scale: dir > 0 ? 1.04 : 0.97 }),
+    center: { opacity: 1, scale: 1 },
+    exit:  (dir: number) => ({ opacity: 0, scale: dir > 0 ? 0.97 : 1.04 }),
   }
+
+  const textVariants = {
+    enter: { opacity: 0, y: 30 },
+    center: { opacity: 1, y: 0 },
+    exit:  { opacity: 0, y: -20 },
+  }
+
+  // Navbar height: 38px top bar + 68px main nav + 1px border = 107px
+  const navH = 107
 
   return (
     <>
-      {/* ── Slider ─────────────────────────────────────────── */}
-      <div
-        className="relative overflow-hidden"
-        style={{ paddingTop: 'clamp(82px, 12vw, 132px)', minHeight: '580px' }}
-      >
+      {/* ── HERO SLIDER ──────────────────────────────────── */}
+      <div style={{ position: 'relative', overflow: 'hidden', marginTop: `${navH}px`, minHeight: '520px' }}>
+
         {/* Background image — crossfade */}
-        <AnimatePresence mode="sync">
+        <AnimatePresence custom={direction} mode="sync">
           <motion.div
             key={`bg-${current}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            className="absolute inset-0"
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.9, ease: 'easeInOut' }}
             style={{
-              backgroundImage: imagesLoaded[current] ? `url(${slide.image})` : 'none',
+              position: 'absolute', inset: 0,
+              backgroundImage: `url(${imgSrc[current]})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              backgroundColor: '#e8ecf1',
+              backgroundColor: '#1a2a3a',
             }}
           />
         </AnimatePresence>
 
-        {/* Dark overlay so text is readable */}
-        <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.38) 60%, rgba(0,0,0,0.55) 100%)' }}
-        />
+        {/* Dark gradient overlay — stronger on left for text readability */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.15) 100%)',
+        }} />
 
-        {/* Slide text */}
-        <div
-          className="relative z-10 flex flex-col items-center justify-center text-center px-6 sm:px-16"
-          style={{ minHeight: '460px', paddingTop: '48px', paddingBottom: '72px' }}
-        >
+        {/* Slide content — LEFT aligned */}
+        <div style={{
+          position: 'relative', zIndex: 10,
+          maxWidth: '1200px', margin: '0 auto', padding: '0 24px',
+          minHeight: '520px', display: 'flex', alignItems: 'center',
+        }}>
           <AnimatePresence custom={direction} mode="wait">
             <motion.div
-              key={`slide-${current}`}
-              custom={direction}
+              key={`text-${current}`}
               variants={textVariants}
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="max-w-3xl mx-auto w-full"
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+              style={{ maxWidth: '580px', padding: '80px 0' }}
             >
-              <h1
-                className="font-black text-white leading-[1.1] tracking-tight mb-2 drop-shadow-lg"
-                style={{ fontSize: 'clamp(2rem, 6vw, 4rem)' }}
-              >
-                {slide.headline}
+              {/* Tag */}
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                background: 'rgba(220,38,38,0.85)', color: '#fff',
+                padding: '5px 14px', borderRadius: '4px',
+                fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em',
+                textTransform: 'uppercase', marginBottom: '20px',
+              }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#fff', display: 'inline-block' }} />
+                {slide.tag}
+              </div>
+
+              {/* Headline */}
+              <h1 style={{
+                color: '#fff', fontWeight: 800, lineHeight: 1.1,
+                fontSize: 'clamp(2rem, 5vw, 3.4rem)',
+                marginBottom: '8px', textShadow: '0 2px 8px rgba(0,0,0,0.3)',
+              }}>
+                {slide.headline1}
               </h1>
-              <h2
-                className="font-black leading-[1.1] tracking-tight mb-6 drop-shadow-lg"
-                style={{ fontSize: 'clamp(1.6rem, 5vw, 3.2rem)', color: '#FF6B6B' }}
-              >
-                {slide.subheadline}
-              </h2>
-              <p
-                className="text-white/90 font-medium max-w-2xl mx-auto mb-8 leading-relaxed drop-shadow"
-                style={{ fontSize: 'clamp(0.9rem, 2vw, 1.05rem)' }}
-              >
+              <h1 style={{
+                color: '#fff', fontWeight: 700, lineHeight: 1.1,
+                fontSize: 'clamp(1.6rem, 4vw, 2.8rem)',
+                marginBottom: '24px', textShadow: '0 2px 8px rgba(0,0,0,0.3)',
+              }}>
+                {slide.headline2}
+              </h1>
+
+              {/* Description */}
+              <p style={{
+                color: 'rgba(255,255,255,0.88)', fontSize: '15px',
+                lineHeight: 1.8, marginBottom: '32px', maxWidth: '480px',
+              }}>
                 {slide.description}
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                <Link
-                  to={slide.primaryBtn.href}
-                  className="btn-primary"
-                  style={{ minWidth: '170px', boxShadow: '0 4px 16px rgba(220,38,38,0.4)' }}
-                >
-                  {slide.primaryBtn.label}
-                </Link>
-                <Link
-                  to={slide.secondaryBtn.href}
+
+              {/* Buttons */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                <Link to={slide.primaryBtn.href}
                   style={{
-                    minWidth: '150px', padding: '12px 28px', borderRadius: '8px',
-                    border: '2px solid rgba(255,255,255,0.7)', color: '#fff',
-                    fontWeight: 600, fontSize: '14px', textDecoration: 'none',
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    transition: 'all 0.2s', backdropFilter: 'blur(4px)',
-                    background: 'rgba(255,255,255,0.1)',
+                    display: 'inline-flex', alignItems: 'center', gap: '8px',
+                    padding: '13px 28px', background: '#DC2626', color: '#fff',
+                    borderRadius: '6px', fontSize: '14px', fontWeight: 700,
+                    textDecoration: 'none', transition: 'background 0.2s',
+                    boxShadow: '0 4px 16px rgba(220,38,38,0.4)',
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = '#b91c1c')}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = '#DC2626')}
+                >
+                  {slide.primaryBtn.label} <ArrowRight size={15} />
+                </Link>
+                <Link to={slide.secondaryBtn.href}
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '8px',
+                    padding: '13px 28px',
+                    background: 'rgba(255,255,255,0.12)',
+                    backdropFilter: 'blur(6px)',
+                    border: '2px solid rgba(255,255,255,0.6)',
+                    color: '#fff', borderRadius: '6px', fontSize: '14px', fontWeight: 600,
+                    textDecoration: 'none', transition: 'background 0.2s',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.22)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.12)')}
                 >
                   {slide.secondaryBtn.label}
                 </Link>
@@ -198,49 +229,61 @@ export default function HeroSection() {
           </AnimatePresence>
         </div>
 
-        {/* ← Prev */}
-        <button
-          onClick={manualPrev}
-          aria-label="Previous slide"
-          className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200"
-          style={{ background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.4)', color: '#fff', backdropFilter: 'blur(6px)' }}
+        {/* ← Prev arrow */}
+        <button onClick={manualPrev} aria-label="Previous"
+          style={{
+            position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)',
+            zIndex: 20, width: '44px', height: '44px', borderRadius: '50%',
+            background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(6px)',
+            border: '1px solid rgba(255,255,255,0.4)', color: '#fff',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer', transition: 'background 0.2s',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(220,38,38,0.7)')}
+          onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')}
         >
           <ChevronLeft size={22} />
         </button>
 
-        {/* → Next */}
-        <button
-          onClick={manualNext}
-          aria-label="Next slide"
-          className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200"
-          style={{ background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.4)', color: '#fff', backdropFilter: 'blur(6px)' }}
+        {/* → Next arrow */}
+        <button onClick={manualNext} aria-label="Next"
+          style={{
+            position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)',
+            zIndex: 20, width: '44px', height: '44px', borderRadius: '50%',
+            background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(6px)',
+            border: '1px solid rgba(255,255,255,0.4)', color: '#fff',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer', transition: 'background 0.2s',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(220,38,38,0.7)')}
+          onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')}
         >
           <ChevronRight size={22} />
         </button>
 
-        {/* Dots */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+        {/* Dot indicators — bottom center */}
+        <div style={{
+          position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)',
+          zIndex: 20, display: 'flex', alignItems: 'center', gap: '8px',
+        }}>
           {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => manualGoTo(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              className="rounded-full transition-all duration-300"
+            <button key={i} onClick={() => manualGoTo(i)} aria-label={`Slide ${i + 1}`}
               style={{
-                width: i === current ? '28px' : '10px',
-                height: '10px',
+                width: i === current ? '28px' : '10px', height: '10px',
+                borderRadius: '5px', border: 'none', cursor: 'pointer',
                 background: i === current ? '#DC2626' : 'rgba(255,255,255,0.5)',
+                transition: 'all 0.3s',
+                padding: 0,
               }}
             />
           ))}
         </div>
 
         {/* Progress bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ background: 'rgba(255,255,255,0.2)' }}>
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '3px', background: 'rgba(255,255,255,0.2)' }}>
           <motion.div
-            key={`progress-${current}`}
-            className="h-full"
-            style={{ background: '#DC2626' }}
+            key={`prog-${current}`}
+            style={{ height: '100%', background: '#DC2626', transformOrigin: 'left' }}
             initial={{ width: '0%' }}
             animate={{ width: '100%' }}
             transition={{ duration: SLIDE_DURATION / 1000, ease: 'linear' }}
@@ -248,35 +291,24 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* ── Marquee stats bar ──────────────────────────────── */}
-      <div
-        style={{
-          background: '#DC2626',
-          overflow: 'hidden',
-          padding: '12px 0',
-          position: 'relative',
-        }}
-      >
+      {/* ── MARQUEE BAR ──────────────────────────────────── */}
+      <div style={{ background: '#DC2626', overflow: 'hidden', padding: '10px 0', position: 'relative' }}>
         {/* Fade edges */}
-        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '80px', background: 'linear-gradient(to right, #DC2626, transparent)', zIndex: 2, pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '80px', background: 'linear-gradient(to left, #DC2626, transparent)', zIndex: 2, pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '60px', background: 'linear-gradient(to right, #DC2626, transparent)', zIndex: 2, pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '60px', background: 'linear-gradient(to left, #DC2626, transparent)', zIndex: 2, pointerEvents: 'none' }} />
 
         <motion.div
           animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 22, ease: 'linear', repeat: Infinity }}
-          style={{ display: 'flex', alignItems: 'center', gap: '0', whiteSpace: 'nowrap', width: 'max-content' }}
+          transition={{ duration: 25, ease: 'linear', repeat: Infinity }}
+          style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap', width: 'max-content' }}
         >
-          {/* Duplicate for seamless loop */}
           {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <span
-              key={i}
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '10px',
-                color: '#fff', fontSize: '13px', fontWeight: 600,
-                padding: '0 28px', letterSpacing: '0.04em',
-              }}
-            >
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'rgba(255,255,255,0.6)', display: 'inline-block', flexShrink: 0 }} />
+            <span key={i} style={{
+              display: 'inline-flex', alignItems: 'center', gap: '10px',
+              color: '#fff', fontSize: '13px', fontWeight: 600,
+              padding: '0 24px', letterSpacing: '0.04em',
+            }}>
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'rgba(255,255,255,0.6)', display: 'inline-block', flexShrink: 0 }} />
               {item}
             </span>
           ))}

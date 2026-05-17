@@ -1,19 +1,67 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Monitor, Cog, Cpu, Cloud, Building2, Shield, Wifi, BarChart3, CheckCircle2, ChevronDown } from 'lucide-react'
+import { CheckCircle2, ChevronDown } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import SectionHeader from '../components/SectionHeader'
-import CTASection from '../components/home/CTASection'
 
+// Place your product images in /public/products/
+// product1.jpg = Pipette (single)
+// product2.jpg = Microscope with monitor
+// product3.jpg = Pipette set with tips
+// product4.jpg = Hematology analyzer
+// product5.jpg = Lab equipment setup
 const services = [
-  { id: 'it-solutions', icon: Monitor, title: 'IT Solutions', description: 'Comprehensive IT infrastructure design, implementation, and managed services. We build robust, scalable technology foundations that support your business growth.', benefits: ['Network infrastructure design & deployment', 'Software development & integration', 'IT managed services & support', 'Digital workplace transformation', 'IT strategy & consulting'] },
-  { id: 'engineering', icon: Cog, title: 'Engineering Consultancy', description: 'Expert engineering consulting across civil, mechanical, electrical, and systems engineering. We provide technical expertise that bridges the gap between design and execution.', benefits: ['Systems engineering & architecture', 'Technical feasibility studies', 'Project management & oversight', 'Quality assurance & compliance', 'Engineering documentation'] },
-  { id: 'ai-automation', icon: Cpu, title: 'AI & Automation', description: 'Intelligent automation solutions powered by machine learning, natural language processing, and computer vision. Transform repetitive processes into intelligent workflows.', benefits: ['Machine learning model development', 'Robotic process automation (RPA)', 'Natural language processing', 'Computer vision solutions', 'Predictive analytics'] },
-  { id: 'cloud', icon: Cloud, title: 'Cloud Services', description: 'End-to-end cloud solutions on AWS, Azure, and Google Cloud. From migration strategy to ongoing optimization, we maximize your cloud investment.', benefits: ['Cloud migration & modernization', 'Multi-cloud architecture', 'Cloud security & compliance', 'Cost optimization', 'DevOps & CI/CD pipelines'] },
-  { id: 'enterprise', icon: Building2, title: 'Enterprise Solutions', description: 'Comprehensive ERP, CRM, and business process management solutions. We implement and customize enterprise platforms that streamline operations at scale.', benefits: ['ERP implementation & customization', 'CRM & customer experience platforms', 'Business process automation', 'System integration & APIs', 'Enterprise mobility solutions'] },
-  { id: 'cybersecurity', icon: Shield, title: 'Cybersecurity', description: 'Advanced threat protection, compliance management, and security operations. We protect your digital assets with enterprise-grade security frameworks.', benefits: ['Security operations center (SOC)', 'Penetration testing & vulnerability assessment', 'Compliance & risk management', 'Identity & access management', 'Incident response & recovery'] },
-  { id: 'smart-infrastructure', icon: Wifi, title: 'Smart Infrastructure', description: 'IoT-enabled smart building, city, and industrial infrastructure solutions. We connect physical assets to digital intelligence for operational excellence.', benefits: ['IoT platform development', 'Smart building management', 'Industrial automation (IIoT)', 'SCADA & control systems', 'Predictive maintenance'] },
-  { id: 'data-analytics', icon: BarChart3, title: 'Data Analytics', description: 'Business intelligence, data warehousing, and advanced analytics. We transform raw data into actionable insights that drive strategic decision-making.', benefits: ['Data warehouse & lake architecture', 'Business intelligence dashboards', 'Advanced analytics & reporting', 'Data governance & quality', 'Real-time analytics platforms'] },
+  {
+    id: 'laboratory-equipment',
+    image: '/products/product4.jpg',
+    fallback: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80&fit=crop',
+    title: 'Hematology Analyzer',
+    description: 'Our advanced Hematology Analyzer is a fully automated 5-part differential blood cell counter designed for clinical laboratories and hospitals. Featuring a large touchscreen display with real-time graphical analysis, it delivers fast, accurate, and reliable complete blood count (CBC) results to support clinical decision-making.',
+    benefits: [
+      '5-part differential WBC analysis',
+      'Large touchscreen with real-time histograms & scattergrams',
+      'High throughput — up to 60 samples/hour',
+      'Automatic sample loading & barcode scanning',
+      'Compact design with built-in thermal printer',
+    ],
+  },
+  {
+    id: 'scientific-equipment',
+    image: '/products/product3.jpg',
+    fallback: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&q=80&fit=crop',
+    title: 'Micropipette Set with Tips & Rack',
+    description: 'Our precision Micropipette Set is an essential tool for any laboratory, offering accurate and reproducible liquid handling across a wide volume range. The set includes multiple single-channel micropipettes mounted on a convenient stand, paired with a complete tip box system featuring color-coded racks for easy organization and contamination-free workflow.',
+    benefits: [
+      'Volume range: 0.1 µL – 1000 µL (multiple sizes)',
+      'Ergonomic design for reduced hand fatigue',
+      'Autoclavable & chemical-resistant materials',
+      'Color-coded tip racks for easy identification',
+      'High accuracy & reproducibility (±0.5%)',
+    ],
+  },
+  {
+    id: 'lab-consumables',
+    image: '/products/product2.jpg',
+    fallback: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&q=80&fit=crop',
+    title: 'Laboratory Consumables',
+    description: 'Laboratory consumables are integral to day-to-day operations. We offer a wide range of high-quality consumables to support your laboratory\'s workflow.',
+    benefits: ['Pipettes & petri dishes', 'Glassware & reagents', 'Filters & disposable gloves', 'Pipette tips & racks', 'Routine test essentials'],
+  },
+  {
+    id: 'biomedical-equipment',
+    image: '/products/product1.jpg',
+    fallback: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80&fit=crop',
+    title: 'Biomedical Equipment',
+    description: 'In the ever-evolving field of healthcare and diagnostics, we provide advanced biomedical equipment including diagnostic devices and patient monitoring systems.',
+    benefits: ['Diagnostic devices', 'Patient monitoring systems', 'Medical imaging tools', 'Hematology analyzers', 'Laboratory testing instruments'],
+  },
+  {
+    id: 'scientific-software',
+    image: '/products/product5.jpg',
+    fallback: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80&fit=crop',
+    title: 'Scientific Software Solutions',
+    description: 'At TECHBIOMATIC, we specialize in offering cutting-edge scientific software solutions that support research and development across diverse fields.',
+    benefits: ['Data analysis & management', 'Simulation & modelling tools', 'Laboratory information systems', 'Research workflow automation', 'Reporting & visualization'],
+  },
 ]
 
 const technologies = [
@@ -25,7 +73,6 @@ const technologies = [
   { name: 'PostgreSQL', category: 'Database' }, { name: 'MongoDB', category: 'Database' }, { name: 'Redis', category: 'Database' },
   { name: 'Cisco', category: 'Network' }, { name: 'Palo Alto', category: 'Security' },
 ]
-
 
 const faqs = [
   { q: 'What industries does Techbiomatic serve?', a: 'We serve a wide range of industries including construction, healthcare, oil & gas, government, manufacturing, logistics, real estate, and smart cities. Our solutions are tailored to the specific needs and regulations of each sector.' },
@@ -44,58 +91,105 @@ const processSteps = [
   { step: '05', title: 'Support', desc: 'Ongoing monitoring, optimization, and support to ensure your solution continues to deliver value.' },
 ]
 
+const VP = { once: true, margin: '0px 0px -60px 0px' }
+const W = { maxWidth: '960px', margin: '0 auto', padding: '0 24px' }
+const divider = <div style={{ width: '56px', height: '4px', background: '#DC2626', borderRadius: '2px', margin: '0 auto 24px' }} />
+
 export default function Services() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative page-hero bg-white">
-        <div className="absolute inset-0 grid-bg opacity-60" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#DC2626]/5 rounded-full blur-[120px]" />
-        <div className="relative container-pad text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <span className="tag mb-6 inline-flex">Our Services</span>
-            <h1 className="font-black text-gray-900 mb-6 leading-tight" style={{ fontSize: 'clamp(1.8rem, 6vw, 3.5rem)' }}>
-              End-to-End Technology{' '}
-              <span className="gradient-text-gold">Solutions</span>
+      {/* ── HERO ─────────────────────────────────────────── */}
+      <section style={{ background: '#fff', padding: '160px 24px 80px', textAlign: 'center' }}>
+        <div style={W}>
+          <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              padding: '6px 16px', borderRadius: '100px', fontSize: '11px',
+              fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase',
+              background: '#FFEBEB', border: '1px solid rgba(220,38,38,0.25)',
+              color: '#DC2626', marginBottom: '20px',
+            }}>Our Services</span>
+            <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', fontWeight: 800, color: '#111827', lineHeight: 1.15, marginBottom: '20px' }}>
+              End-to-End Technology <span style={{ color: '#DC2626' }}>Solutions</span>
             </h1>
-            <p className="text-gray-500 text-lg leading-relaxed max-w-3xl mx-auto">
-              From AI automation to enterprise IT infrastructure, we deliver comprehensive technology and engineering services that transform businesses across the UAE and Middle East.
+            {divider}
+            <p style={{ color: '#6B7280', fontSize: '1.05rem', lineHeight: 1.8, maxWidth: '640px', margin: '0 auto' }}>
+              From AI automation to enterprise IT infrastructure, we deliver comprehensive technology
+              and engineering services that transform businesses across the UAE and Middle East.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Services List */}
-      <section className="relative section-padding bg-[#F9FAFB]">
-        <div className="relative container-pad">
-          <div className="space-y-16">
+      {/* ── SERVICES LIST ────────────────────────────────── */}
+      <section style={{ background: '#F9FAFB', padding: '80px 24px' }}>
+        <div style={W}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '72px' }}>
             {services.map((service, i) => (
-              <motion.div key={service.id} id={service.id}
-                initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -80px 0px' }} transition={{ duration: 0.6 }}
-                className={`grid lg:grid-cols-2 gap-12 items-center`}>
-                <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-[#FFEBEB]">
-                    <service.icon size={26} className="text-[#DC2626]" />
-                  </div>
-                  <h2 className="text-3xl font-black text-gray-900 mb-4">{service.title}</h2>
-                  <p className="text-gray-500 leading-relaxed mb-6">{service.description}</p>
-                  <ul className="space-y-3 mb-8">
+              <motion.div
+                key={service.id} id={service.id}
+                initial={{ opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={VP} transition={{ duration: 0.55 }}
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                  gap: '48px', alignItems: 'center',
+                }}
+              >
+                {/* Text — alternates order */}
+                <div style={{ order: i % 2 === 1 ? 2 : 1 }}>
+                  <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 1.9rem)', fontWeight: 800, color: '#111827', marginBottom: '12px' }}>
+                    {service.title}
+                  </h2>
+                  <div style={{ width: '40px', height: '3px', background: '#DC2626', borderRadius: '2px', marginBottom: '16px' }} />
+                  <p style={{ color: '#6B7280', fontSize: '15px', lineHeight: 1.8, marginBottom: '20px' }}>
+                    {service.description}
+                  </p>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {service.benefits.map((benefit) => (
-                      <li key={benefit} className="flex items-center gap-3 text-sm text-gray-600">
-                        <CheckCircle2 size={16} className="text-[#DC2626] shrink-0" />
+                      <li key={benefit} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: '#374151' }}>
+                        <CheckCircle2 size={16} color="#DC2626" style={{ flexShrink: 0 }} />
                         {benefit}
                       </li>
                     ))}
                   </ul>
-                  <Link to="/contact" className="btn-primary inline-flex items-center gap-2 text-sm">Get a Quote</Link>
+                  <Link to="/contact" style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '8px',
+                    padding: '11px 24px', background: '#DC2626', color: '#fff',
+                    borderRadius: '8px', fontSize: '14px', fontWeight: 600,
+                    textDecoration: 'none', transition: 'background 0.2s',
+                  }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = '#b91c1c')}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = '#DC2626')}
+                  >
+                    Get a Quote
+                  </Link>
                 </div>
-                <div className={i % 2 === 1 ? 'lg:order-1' : ''}>
-                  <div className="bg-[#FFEBEB] border border-red-100 rounded-2xl p-10 flex items-center justify-center min-h-[280px] relative overflow-hidden">
-                    <div className="w-32 h-32 rounded-3xl flex items-center justify-center bg-white border border-red-100 shadow-sm">
-                      <service.icon size={56} className="text-[#DC2626]" />
-                    </div>
+
+                {/* Product image */}
+                <div style={{ order: i % 2 === 1 ? 1 : 2 }}>
+                  <div style={{
+                    borderRadius: '16px', overflow: 'hidden',
+                    border: '1px solid #E5E7EB',
+                    boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+                    background: '#fff',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    minHeight: '280px',
+                    padding: '16px',
+                  }}>
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      onError={(e) => { e.currentTarget.src = service.fallback }}
+                      style={{
+                        width: '100%', height: '280px',
+                        objectFit: 'contain',
+                        borderRadius: '8px',
+                        display: 'block',
+                      }}
+                    />
                   </div>
                 </div>
               </motion.div>
@@ -104,41 +198,76 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Process */}
-      <section className="relative section-padding bg-white">
-        <div className="absolute inset-0 grid-bg opacity-40" />
-        <div className="relative container-pad">
-          <SectionHeader tag="Our Process" title="How We " highlight="Deliver" description="A proven methodology that ensures every project is delivered on time, on budget, and to the highest quality standards." />
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+      {/* ── PROCESS ──────────────────────────────────────── */}
+      <section style={{ background: '#fff', padding: '80px 24px' }}>
+        <div style={W}>
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={VP} transition={{ duration: 0.5 }}
+            style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <span style={{ display: 'inline-flex', padding: '6px 16px', borderRadius: '100px', fontSize: '11px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', background: '#FFEBEB', border: '1px solid rgba(220,38,38,0.25)', color: '#DC2626', marginBottom: '16px' }}>
+              Our Process
+            </span>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', fontWeight: 700, color: '#111827', marginBottom: '12px' }}>
+              How We <span style={{ color: '#DC2626' }}>Deliver</span>
+            </h2>
+            {divider}
+            <p style={{ color: '#6B7280', fontSize: '1rem', maxWidth: '560px', margin: '0 auto', lineHeight: 1.7 }}>
+              A proven methodology that ensures every project is delivered on time, on budget, and to the highest quality standards.
+            </p>
+          </motion.div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '24px' }}>
             {processSteps.map((step, i) => (
-              <motion.div key={step.step} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -80px 0px' }} transition={{ delay: i * 0.1 }}
-                className="relative text-center">
-                {i < processSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 left-1/2 w-full h-px bg-gradient-to-r from-[#DC2626]/20 to-transparent" />
-                )}
-                <div className="w-16 h-16 rounded-2xl bg-[#DC2626] flex items-center justify-center mx-auto mb-4 text-white font-black text-lg relative z-10">
+              <motion.div key={step.step}
+                initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={VP} transition={{ delay: i * 0.1 }}
+                style={{ textAlign: 'center', padding: '8px' }}
+              >
+                <div style={{
+                  width: '64px', height: '64px', borderRadius: '16px',
+                  background: '#DC2626', color: '#fff', fontWeight: 800, fontSize: '18px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  margin: '0 auto 16px', boxShadow: '0 4px 16px rgba(220,38,38,0.3)',
+                }}>
                   {step.step}
                 </div>
-                <h3 className="text-gray-900 font-bold text-sm mb-2">{step.title}</h3>
-                <p className="text-gray-400 text-xs leading-relaxed">{step.desc}</p>
+                <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#111827', marginBottom: '8px' }}>{step.title}</h3>
+                <p style={{ fontSize: '13px', color: '#6B7280', lineHeight: 1.7 }}>{step.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Tech Stack */}
-      <section className="relative section-padding bg-[#F9FAFB]">
-        <div className="relative container-pad">
-          <SectionHeader tag="Technology Stack" title="Powered by Industry-Leading " highlight="Technologies"
-            description="We work with the world's best technology platforms and frameworks to deliver robust, scalable solutions." />
-          <div className="flex flex-wrap justify-center gap-3">
+      {/* ── TECH STACK ───────────────────────────────────── */}
+      <section style={{ background: '#F9FAFB', padding: '80px 24px' }}>
+        <div style={W}>
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={VP} transition={{ duration: 0.5 }}
+            style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <span style={{ display: 'inline-flex', padding: '6px 16px', borderRadius: '100px', fontSize: '11px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', background: '#FFEBEB', border: '1px solid rgba(220,38,38,0.25)', color: '#DC2626', marginBottom: '16px' }}>
+              Technology Stack
+            </span>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', fontWeight: 700, color: '#111827', marginBottom: '12px' }}>
+              Powered by Industry-Leading <span style={{ color: '#DC2626' }}>Technologies</span>
+            </h2>
+            {divider}
+          </motion.div>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '12px' }}>
             {technologies.map((tech, i) => (
-              <motion.div key={tech.name} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: '0px 0px -80px 0px' }} transition={{ duration: 0.3, delay: i * 0.04 }}
-                className="group bg-white border border-gray-200 rounded-lg px-4 py-3 flex items-center gap-2 card-hover cursor-default">
-                <div className="w-2 h-2 rounded-full bg-[#DC2626]" />
-                <span className="text-gray-700 text-sm font-medium group-hover:text-gray-900 transition-colors">{tech.name}</span>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-[#FFEBEB] text-[#DC2626]">
+              <motion.div key={tech.name}
+                initial={{ opacity: 0, scale: 0.85 }} whileInView={{ opacity: 1, scale: 1 }}
+                viewport={VP} transition={{ duration: 0.3, delay: i * 0.03 }}
+                style={{
+                  background: '#fff', border: '1px solid #E5E7EB', borderRadius: '8px',
+                  padding: '10px 16px', display: 'flex', alignItems: 'center', gap: '8px',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)', cursor: 'default',
+                  transition: 'border-color 0.2s, box-shadow 0.2s',
+                }}
+                whileHover={{ borderColor: '#FECACA', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+              >
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#DC2626', flexShrink: 0 }} />
+                <span style={{ fontSize: '13px', fontWeight: 600, color: '#374151' }}>{tech.name}</span>
+                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: '#FFEBEB', color: '#DC2626', fontWeight: 600 }}>
                   {tech.category}
                 </span>
               </motion.div>
@@ -147,25 +276,47 @@ export default function Services() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="relative section-padding bg-white">
-        <div className="absolute inset-0 grid-bg opacity-40" />
-        <div className="relative max-w-3xl mx-auto container-pad">
-          <SectionHeader tag="FAQ" title="Frequently Asked " highlight="Questions"
-            description="Everything you need to know about working with Techbiomatic Middle East." />
-          <div className="space-y-3">
+      {/* ── FAQ ──────────────────────────────────────────── */}
+      <section style={{ background: '#fff', padding: '80px 24px' }}>
+        <div style={{ maxWidth: '720px', margin: '0 auto', padding: '0 24px' }}>
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={VP} transition={{ duration: 0.5 }}
+            style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <span style={{ display: 'inline-flex', padding: '6px 16px', borderRadius: '100px', fontSize: '11px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', background: '#FFEBEB', border: '1px solid rgba(220,38,38,0.25)', color: '#DC2626', marginBottom: '16px' }}>
+              FAQ
+            </span>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', fontWeight: 700, color: '#111827', marginBottom: '12px' }}>
+              Frequently Asked <span style={{ color: '#DC2626' }}>Questions</span>
+            </h2>
+            {divider}
+          </motion.div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {faqs.map((faq, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -80px 0px' }} transition={{ delay: i * 0.07 }}
-                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left">
-                  <span className="text-gray-900 font-semibold text-sm pr-4">{faq.q}</span>
-                  <ChevronDown size={18} className={`text-[#DC2626] shrink-0 transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} />
+              <motion.div key={i}
+                initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={VP} transition={{ delay: i * 0.06 }}
+                style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  style={{
+                    width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '18px 20px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
+                  }}
+                >
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827', paddingRight: '16px' }}>{faq.q}</span>
+                  <ChevronDown size={18} color="#DC2626" style={{ flexShrink: 0, transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }} />
                 </button>
                 <AnimatePresence>
                   {openFaq === i && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
-                      <div className="px-5 pb-5 text-gray-500 text-sm leading-relaxed border-t border-gray-100 pt-4">{faq.a}</div>
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <div style={{ padding: '0 20px 18px', fontSize: '14px', color: '#6B7280', lineHeight: 1.75, borderTop: '1px solid #F3F4F6', paddingTop: '14px' }}>
+                        {faq.a}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -175,7 +326,42 @@ export default function Services() {
         </div>
       </section>
 
-      <CTASection />
+      {/* ── CTA BANNER ───────────────────────────────────── */}
+      <section style={{ background: '#DC2626', padding: '64px 24px', textAlign: 'center' }}>
+        <div style={{ maxWidth: '640px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.4rem)', fontWeight: 800, color: '#fff', marginBottom: '16px' }}>
+            Ready to Transform Your Business?
+          </h2>
+          <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '15px', lineHeight: 1.75, marginBottom: '32px' }}>
+            Partner with Techbiomatic to unlock the full potential of technology. Our experts are ready to design your digital transformation journey.
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            <Link to="/contact" style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              padding: '13px 32px', background: '#fff', color: '#DC2626',
+              borderRadius: '8px', fontSize: '14px', fontWeight: 700,
+              textDecoration: 'none', transition: 'opacity 0.2s',
+            }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+            >
+              Get Started Today
+            </Link>
+            <Link to="/about" style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              padding: '13px 32px', background: 'rgba(255,255,255,0.15)',
+              border: '2px solid rgba(255,255,255,0.5)', color: '#fff',
+              borderRadius: '8px', fontSize: '14px', fontWeight: 600,
+              textDecoration: 'none', transition: 'background 0.2s',
+            }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.25)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')}
+            >
+              Learn About Us
+            </Link>
+          </div>
+        </div>
+      </section>
     </>
   )
 }

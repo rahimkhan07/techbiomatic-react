@@ -1,183 +1,328 @@
 import { motion } from 'framer-motion'
-import { Target, Eye, Compass } from 'lucide-react'
-import SectionHeader from '../components/SectionHeader'
-import AnimatedCounter from '../components/AnimatedCounter'
-import CTASection from '../components/home/CTASection'
+import { FlaskConical, Microscope, HeartPulse, TestTube, Code2, Clock, Users, Package, Star, Lightbulb, Headphones, Globe, CheckCircle2 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
-const missionItems = [
-  { icon: Target, title: 'Our Mission', description: 'To deliver transformative technology and engineering solutions that drive sustainable growth, operational excellence, and competitive advantage for our clients across the UAE and Middle East. We are committed to bridging the gap between cutting-edge innovation and real-world business challenges.' },
-  { icon: Eye, title: 'Our Vision', description: 'To be the most trusted and innovative technology partner in the Middle East — shaping the digital future of the region through intelligent solutions, deep expertise, and an unwavering commitment to client success and societal progress.' },
-  { icon: Compass, title: 'Our Purpose', description: "We exist to empower organizations with the technology they need to thrive in an increasingly digital world. Every solution we build is designed to create lasting value, foster innovation, and contribute to the UAE's vision of becoming a global technology hub." },
+const products = [
+  {
+    icon: FlaskConical,
+    number: '1',
+    title: 'Laboratory Equipment',
+    description:
+      'We provide a comprehensive range of laboratory equipment that supports a variety of scientific disciplines, including chemistry, biology, physics, and environmental science. From precision analytical instruments like spectrophotometers, centrifuges, and microscopes, to essential lab tools such as incubators, autoclaves, and balances, we ensure that our customers have access to reliable, durable, and high-performance instruments for their research and testing needs.',
+  },
+  {
+    icon: Microscope,
+    number: '2',
+    title: 'Scientific Equipment',
+    description:
+      'Our selection of scientific equipment is designed to support cutting-edge research and experimentation across various industries. We offer a wide range of specialized instruments, including environmental testing equipment, optical instruments, laboratory reactors, thermal cyclers, and more. Whether for academic research, industrial applications, or government labs, our scientific equipment is built to deliver accurate results and withstand rigorous usage.',
+  },
+  {
+    icon: HeartPulse,
+    number: '3',
+    title: 'Biomedical Equipment',
+    description:
+      'In the ever-evolving field of healthcare and diagnostics, we understand the critical need for advanced biomedical equipment. Our offerings include diagnostic devices, patient monitoring systems, medical imaging tools, laboratory testing instruments, and more. We work with trusted manufacturers to provide healthcare professionals and medical researchers with the most reliable and innovative technologies to improve patient care, enhance clinical decision-making, and drive medical research forward.',
+  },
+  {
+    icon: TestTube,
+    number: '4',
+    title: 'Laboratory Consumables',
+    description:
+      "Laboratory consumables are integral to day-to-day operations, and we offer a wide range of high-quality consumables to support your laboratory's workflow. From pipettes, petri dishes, and glassware to reagents, filters, and disposable gloves, we provide the essential products required for routine tests, experiments, and research. Our consumables are designed for both efficiency and accuracy, ensuring that every task can be performed seamlessly without compromising on quality.",
+  },
+  {
+    icon: Code2,
+    number: '5',
+    title: 'Scientific Software Solutions',
+    description:
+      "In today's rapidly evolving scientific landscape, the ability to efficiently analyze, manage, and interpret data is critical for driving discovery, innovation, and advancements across a wide range of disciplines. At TECHBIOMATIC, we specialize in offering cutting-edge scientific software solutions that support research and development across diverse fields, including biotechnology, chemistry, physics, environmental science, medicine, and engineering. Our software tools are designed to meet the growing demands of modern scientific work, helping you achieve more accurate results, optimize workflows, and accelerate innovation.",
+  },
 ]
 
-const values = [
-  { title: 'Innovation', desc: 'We continuously push boundaries and embrace emerging technologies to deliver forward-thinking solutions.', emoji: '🚀' },
-  { title: 'Integrity', desc: 'We operate with complete transparency, honesty, and ethical standards in every client engagement.', emoji: '🛡️' },
-  { title: 'Excellence', desc: 'We hold ourselves to the highest standards of quality, precision, and professional delivery.', emoji: '⭐' },
-  { title: 'Collaboration', desc: 'We work as true partners with our clients, fostering open communication and shared success.', emoji: '🤝' },
-  { title: 'Agility', desc: 'We adapt quickly to changing requirements and market dynamics to deliver timely, relevant solutions.', emoji: '⚡' },
-  { title: 'Impact', desc: 'Every solution we build is designed to create measurable, lasting positive impact for our clients.', emoji: '🎯' },
+const whyUs = [
+  {
+    icon: Clock,
+    title: 'Proven Industry Experience',
+    description:
+      'With 15 years of experience, we understand the complexities of laboratory operations and have built a solid foundation of trust and reliability among our clients.',
+  },
+  {
+    icon: Users,
+    title: 'Qualified Engineers and Research Doctors',
+    description:
+      'Our team is composed of highly skilled engineers and accomplished research doctors, ensuring that you receive the most advanced, scientifically backed, and technically sound solutions. With years of experience in their respective fields, they bring both expertise and innovation to every project.',
+  },
+  {
+    icon: Package,
+    title: 'Wide Range of Products',
+    description:
+      'We offer a one-stop solution for laboratories, healthcare facilities, and scientific research institutions with our diverse range of products, from advanced equipment to consumables and software.',
+  },
+  {
+    icon: Star,
+    title: 'Commitment to Quality',
+    description:
+      'Quality is at the core of everything we do. We work with the most reputable manufacturers in the industry to ensure our customers receive only the highest-quality products that meet international standards.',
+  },
+  {
+    icon: Lightbulb,
+    title: 'Innovation and Expertise',
+    description:
+      'Our team is always on the cutting edge of technological advancements in laboratory and biomedical fields. By staying ahead of industry trends, we ensure that our clients have access to the latest innovations that drive scientific discovery and clinical excellence.',
+  },
+  {
+    icon: Headphones,
+    title: 'Customer-Focused Service',
+    description:
+      'We prioritize understanding the unique needs of our clients. Our dedicated customer support team works closely with you to ensure you receive the right solutions, backed by expert advice and timely service.',
+  },
+  {
+    icon: Globe,
+    title: 'Global Reach',
+    description:
+      "With a wide network of clients across various sectors worldwide, we have established ourselves as a trusted supplier in the scientific, medical, and research communities. No matter where you are, we're ready to deliver the products and support you need.",
+  },
 ]
 
-const milestones = [
-  { year: '2019', title: 'Company Founded', desc: 'Techbiomatic Middle East established in Dubai Free Zone with a vision to transform enterprise technology.' },
-  { year: '2020', title: 'First Major Contract', desc: 'Secured first government enterprise contract, delivering a comprehensive IT infrastructure overhaul.' },
-  { year: '2021', title: 'AI Division Launch', desc: 'Launched dedicated AI & Machine Learning division, delivering first AI automation projects.' },
-  { year: '2022', title: 'Regional Expansion', desc: 'Expanded operations across UAE, serving clients in Abu Dhabi, Sharjah, and beyond.' },
-  { year: '2023', title: 'Cloud Partnership', desc: 'Achieved AWS Advanced Partner and Microsoft Gold Partner status, strengthening cloud capabilities.' },
-  { year: '2024', title: 'Smart Cities Focus', desc: 'Launched Smart Cities practice, winning major IoT infrastructure contracts across the UAE.' },
-]
+const VP = { once: true, margin: '0px 0px -60px 0px' }
 
-const team = [
-  { name: 'Ahmad Al Rashid', role: 'Chief Executive Officer', dept: 'Leadership', initials: 'AR' },
-  { name: 'Sarah Mitchell', role: 'Chief Technology Officer', dept: 'Technology', initials: 'SM' },
-  { name: 'Mohammed Al Farsi', role: 'VP Engineering', dept: 'Engineering', initials: 'MF' },
-  { name: 'Priya Sharma', role: 'Head of AI & Data', dept: 'AI Division', initials: 'PS' },
-  { name: 'James Wilson', role: 'Head of Cloud Services', dept: 'Cloud', initials: 'JW' },
-  { name: 'Fatima Al Zaabi', role: 'Head of Cybersecurity', dept: 'Security', initials: 'FZ' },
-  { name: 'Raj Patel', role: 'Head of Enterprise Solutions', dept: 'Enterprise', initials: 'RP' },
-  { name: 'Layla Hassan', role: 'Head of Client Success', dept: 'Operations', initials: 'LH' },
-]
+const tag = (label: string) => (
+  <span style={{
+    display: 'inline-flex', alignItems: 'center', gap: '8px',
+    padding: '6px 14px', borderRadius: '100px', fontSize: '11px',
+    fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' as const,
+    background: '#FFEBEB', border: '1px solid rgba(220,38,38,0.25)', color: '#DC2626',
+    marginBottom: '16px',
+  }}>{label}</span>
+)
 
-const stats = [
-  { end: 200, suffix: '+', label: 'Projects Completed' },
-  { end: 50, suffix: '+', label: 'Clients Served' },
-  { end: 12, suffix: '+', label: 'Industries Covered' },
-  { end: 5, suffix: '+', label: 'Years of Excellence' },
-]
+const divider = (
+  <div style={{ width: '56px', height: '4px', background: '#DC2626', borderRadius: '2px', margin: '0 auto 24px' }} />
+)
 
 export default function About() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative page-hero bg-white">
-        <div className="absolute inset-0 grid-bg opacity-60" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#DC2626]/5 rounded-full blur-[120px]" />
-        <div className="relative container-pad">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="text-center max-w-4xl mx-auto">
-            <span className="tag mb-6 inline-flex">About Us</span>
-            <h1 className="font-black text-gray-900 mb-6 leading-tight" style={{ fontSize: 'clamp(1.8rem, 6vw, 3.5rem)' }}>
-              Pioneering Technology &{' '}
-              <span className="gradient-text-gold">Engineering Excellence</span>
-              {' '}in the UAE
+      {/* ══ HERO ══════════════════════════════════════════════ */}
+      <section style={{ background: '#fff', padding: '160px 24px 80px', textAlign: 'center' }}>
+        <div style={{ maxWidth: '860px', margin: '0 auto' }}>
+          <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            {tag('About Us')}
+            <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', fontWeight: 800, color: '#111827', lineHeight: 1.15, marginBottom: '20px' }}>
+              Welcome to <span style={{ color: '#DC2626' }}>TECHBIOMATIC</span>
             </h1>
-            <p className="text-gray-500 text-lg leading-relaxed max-w-3xl mx-auto">
-              Techbiomatic Middle East L.L.C-FZ is a premier technology and engineering company headquartered at Meydan Grandstand, Dubai. We are dedicated to delivering intelligent, scalable, and future-ready solutions that empower enterprises across the UAE and the broader Middle East region.
+            {divider}
+            <p style={{ color: '#4B5563', fontSize: '1.05rem', lineHeight: 1.85, maxWidth: '760px', margin: '0 auto 32px' }}>
+              With <strong>over 15 years of experience</strong> in the industry, we have established
+              ourselves as a reliable partner and a leading supplier of laboratory equipment, scientific
+              instruments, biomedical devices, laboratory consumables, and software solutions. We
+              specialize in providing high-quality products and services designed to meet the needs of
+              laboratories, research institutions, healthcare facilities, and academic institutions{' '}
+              <strong>across the globe.</strong> Our extensive portfolio of cutting-edge solutions is
+              backed by a commitment to excellence, innovation, and customer satisfaction.
             </p>
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
-            className="mt-16 bg-white border border-gray-200 shadow-sm rounded-2xl p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[{ label: 'Headquarters', value: 'Meydan Grandstand, Dubai' }, { label: 'Established', value: 'Dubai, UAE' }, { label: 'License Type', value: 'L.L.C-FZ (Free Zone)' }].map((item, i) => (
-              <div key={item.label} className={`text-center ${i < 2 ? 'md:border-r border-gray-100' : ''}`}>
-                <div className="text-[#DC2626] text-xs font-semibold tracking-widest uppercase mb-2">{item.label}</div>
-                <div className="text-gray-900 font-bold text-lg">{item.value}</div>
+
+          {/* Info bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+            style={{
+              display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+              background: '#fff', border: '1px solid #E5E7EB',
+              borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+              overflow: 'hidden',
+            }}
+          >
+            {[
+              { label: 'Experience', value: '15+ Years' },
+              { label: 'Specialization', value: 'Lab & Biomedical' },
+              { label: 'Reach', value: 'Global' },
+            ].map((item, i) => (
+              <div key={item.label} style={{
+                padding: '20px 16px', textAlign: 'center',
+                borderRight: i < 2 ? '1px solid #F3F4F6' : 'none',
+              }}>
+                <div style={{ color: '#DC2626', fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '6px' }}>{item.label}</div>
+                <div style={{ color: '#111827', fontWeight: 700, fontSize: '16px' }}>{item.value}</div>
               </div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Mission / Vision / Purpose */}
-      <section className="relative section-padding bg-[#F9FAFB]">
-        <div className="relative container-pad">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {missionItems.map((item, i) => (
-              <motion.div key={item.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -80px 0px' }} transition={{ duration: 0.5, delay: i * 0.15 }}
-                className="group bg-white border border-gray-200 rounded-2xl p-8 card-hover relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#DC2626] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-[#FFEBEB]">
-                  <item.icon size={26} className="text-[#DC2626]" />
-                </div>
-                <h3 className="text-gray-900 font-bold text-xl mb-4">{item.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ══ PRODUCT OFFERINGS ════════════════════════════════ */}
+      <section style={{ background: '#F9FAFB', padding: '80px 24px' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={VP} transition={{ duration: 0.5 }}
+            style={{ textAlign: 'center', marginBottom: '52px' }}
+          >
+            {tag('What We Offer')}
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', fontWeight: 700, color: '#111827', marginBottom: '12px', lineHeight: 1.2 }}>
+              Our Product <span style={{ color: '#DC2626' }}>Offerings</span>
+            </h2>
+            {divider}
+          </motion.div>
 
-      {/* Stats */}
-      <section className="relative section-padding-sm bg-white">
-        <div className="absolute inset-0 grid-bg opacity-40" />
-        <div className="relative max-w-4xl mx-auto container-pad">
-          <div className="bg-white border border-gray-200 shadow-sm rounded-2xl p-10 grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat) => (
-              <AnimatedCounter key={stat.label} end={stat.end} suffix={stat.suffix} label={stat.label} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="relative section-padding bg-[#F9FAFB]">
-        <div className="relative container-pad">
-          <SectionHeader tag="Our Values" title="The Principles That " highlight="Guide Us"
-            description="Our core values define who we are and how we work. They are the foundation of every decision, every solution, and every client relationship." />
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {values.map((value, i) => (
-              <motion.div key={value.title} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: '0px 0px -80px 0px' }} transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="group bg-white border border-gray-200 rounded-xl p-6 card-hover text-center">
-                <div className="text-4xl mb-4">{value.emoji}</div>
-                <h3 className="text-gray-900 font-bold text-base mb-2 group-hover:text-[#DC2626] transition-colors">{value.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{value.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="relative section-padding bg-white">
-        <div className="absolute inset-0 grid-bg opacity-40" />
-        <div className="relative max-w-4xl mx-auto container-pad">
-          <SectionHeader tag="Our Journey" title="A Timeline of " highlight="Growth"
-            description="From a startup vision to a leading technology company — our journey of innovation and impact." />
-          <div className="relative">
-            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#DC2626]/30 to-transparent -translate-x-1/2 hidden md:block" />
-            <div className="space-y-8">
-              {milestones.map((milestone, i) => (
-                <motion.div key={milestone.year} initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '0px 0px -80px 0px' }} transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className={`flex items-center gap-8 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                  <div className={`flex-1 ${i % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                    <div className="bg-white border border-gray-200 rounded-xl p-6 card-hover shadow-sm">
-                      <div className="text-[#DC2626] font-black text-2xl mb-2">{milestone.year}</div>
-                      <h3 className="text-gray-900 font-bold text-base mb-2">{milestone.title}</h3>
-                      <p className="text-gray-500 text-sm leading-relaxed">{milestone.desc}</p>
-                    </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {products.map((product, i) => (
+              <motion.div
+                key={product.title}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={VP} transition={{ duration: 0.4, delay: i * 0.07 }}
+                style={{
+                  display: 'flex', gap: '20px', alignItems: 'flex-start',
+                  background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px',
+                  padding: '24px 28px', boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
+                }}
+                whileHover={{ boxShadow: '0 4px 16px rgba(0,0,0,0.09)', borderColor: '#FECACA' }}
+              >
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '10px', background: '#FFEBEB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <product.icon size={22} color="#DC2626" />
                   </div>
-                  <div className="hidden md:flex w-4 h-4 rounded-full bg-[#DC2626] border-4 border-white shrink-0 relative z-10 shadow-sm">
-                    <div className="absolute inset-0 rounded-full bg-[#DC2626] animate-ping opacity-30" />
-                  </div>
-                  <div className="flex-1 hidden md:block" />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="relative section-padding bg-[#F9FAFB]">
-        <div className="relative container-pad">
-          <SectionHeader tag="Leadership Team" title="The Experts Behind " highlight="Our Success"
-            description="Our leadership team brings decades of combined experience in technology, engineering, and business transformation." />
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {team.map((member, i) => (
-              <motion.div key={member.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -80px 0px' }} transition={{ duration: 0.4, delay: i * 0.07 }}
-                className="group bg-white border border-gray-200 rounded-xl p-6 text-center card-hover">
-                <div className="w-16 h-16 rounded-2xl bg-[#FFEBEB] flex items-center justify-center mx-auto mb-4 text-[#DC2626] font-black text-lg group-hover:scale-110 transition-transform duration-300 border border-red-100">
-                  {member.initials}
+                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#DC2626' }}>{product.number}</span>
                 </div>
-                <h3 className="text-gray-900 font-bold text-sm mb-1">{member.name}</h3>
-                <div className="text-[#DC2626] text-xs font-medium mb-1">{member.role}</div>
-                <div className="text-gray-400 text-xs">{member.dept}</div>
+                <div>
+                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#111827', marginBottom: '8px' }}>{product.title}</h4>
+                  <p style={{ fontSize: '14px', color: '#4B5563', lineHeight: 1.8 }}>{product.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <CTASection />
+      {/* ══ WHY CHOOSE US ════════════════════════════════════ */}
+      <section style={{ background: '#fff', padding: '80px 24px' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={VP} transition={{ duration: 0.5 }}
+            style={{ textAlign: 'center', marginBottom: '52px' }}
+          >
+            {tag('Why Techbiomatic')}
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', fontWeight: 700, color: '#111827', marginBottom: '12px', lineHeight: 1.2 }}>
+              Why <span style={{ color: '#DC2626' }}>Choose Us?</span>
+            </h2>
+            {divider}
+          </motion.div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '20px' }}>
+            {whyUs.map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={VP} transition={{ duration: 0.4, delay: i * 0.07 }}
+                style={{
+                  background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px',
+                  padding: '28px 24px', boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
+                }}
+                whileHover={{ boxShadow: '0 4px 16px rgba(0,0,0,0.09)', borderColor: '#FECACA' }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                  <div style={{ width: '42px', height: '42px', borderRadius: '10px', background: '#FFEBEB', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <item.icon size={20} color="#DC2626" />
+                  </div>
+                  <h4 style={{ fontSize: '14px', fontWeight: 700, color: '#111827', lineHeight: 1.3 }}>{item.title}</h4>
+                </div>
+                <p style={{ fontSize: '13px', color: '#4B5563', lineHeight: 1.75 }}>{item.description}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '14px' }}>
+                  <CheckCircle2 size={14} color="#DC2626" />
+                  <span style={{ fontSize: '12px', color: '#DC2626', fontWeight: 600 }}>Verified</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ MISSION & VISION ═════════════════════════════════ */}
+      <section style={{ background: '#F9FAFB', padding: '80px 24px' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={VP} transition={{ duration: 0.5 }}
+            style={{ textAlign: 'center', marginBottom: '48px' }}
+          >
+            {tag('Our Purpose')}
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', fontWeight: 700, color: '#111827', marginBottom: '12px', lineHeight: 1.2 }}>
+              Mission & <span style={{ color: '#DC2626' }}>Vision</span>
+            </h2>
+            {divider}
+          </motion.div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '40px' }}>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
+              viewport={VP} transition={{ duration: 0.5 }}
+              style={{ background: '#FFEBEB', border: '1px solid #FECACA', borderRadius: '14px', padding: '32px 28px' }}
+            >
+              <div style={{ color: '#DC2626', fontWeight: 700, fontSize: '12px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Our Mission</div>
+              <p style={{ color: '#374151', fontSize: '15px', lineHeight: 1.8 }}>
+                At <strong style={{ color: '#DC2626' }}>TECHBIOMATIC</strong>, we are passionate about
+                supporting scientific research, medical advancements, and healthcare improvements. Our
+                mission is to provide laboratories, hospitals, and research institutions with the tools
+                they need to push the boundaries of knowledge, improve patient care, and drive
+                innovation in their respective fields.
+              </p>
+              <p style={{ color: '#374151', fontSize: '15px', lineHeight: 1.8, marginTop: '12px' }}>
+                We are proud to be a reliable partner in your journey toward scientific discovery,
+                medical excellence, and operational efficiency. By delivering high-quality equipment,
+                consumables, and software, we aim to empower our clients to achieve their goals and
+                make a lasting impact in their industries.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
+              viewport={VP} transition={{ duration: 0.5, delay: 0.1 }}
+              style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: '14px', padding: '32px 28px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+            >
+              <div style={{ color: '#DC2626', fontWeight: 700, fontSize: '12px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Our Vision</div>
+              <p style={{ color: '#374151', fontSize: '15px', lineHeight: 1.8 }}>
+                Let <strong style={{ color: '#DC2626' }}>TECHBIOMATIC</strong> be your trusted supplier
+                and partner in success. Together, we can achieve new milestones in scientific research,
+                healthcare, and innovation. We are committed to providing the highest quality solutions
+                and fostering collaborative partnerships that drive progress, discovery, and impactful
+                advancements across industries.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Tagline banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={VP} transition={{ duration: 0.5, delay: 0.15 }}
+            style={{
+              background: '#DC2626', borderRadius: '14px', padding: '32px 28px',
+              textAlign: 'center',
+            }}
+          >
+            <p style={{ color: '#fff', fontSize: '1.15rem', fontWeight: 700, marginBottom: '8px' }}>
+              TECHBIOMATIC – <span style={{ color: '#FFD6D6' }}>Technology for Humans</span>
+            </p>
+            <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '14px', lineHeight: 1.7, maxWidth: '600px', margin: '0 auto' }}>
+              Discover the TECHBIOMATIC difference today! Explore our full product range and learn
+              how we can support your laboratory's success. For inquiries, product details, or a
+              consultation, please contact us.
+            </p>
+            <Link
+              to="/contact"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                marginTop: '20px', padding: '12px 28px', borderRadius: '8px',
+                background: '#fff', color: '#DC2626', fontWeight: 700, fontSize: '14px',
+                textDecoration: 'none', transition: 'opacity 0.2s',
+              }}
+            >
+              Contact Us
+            </Link>
+          </motion.div>
+        </div>
+      </section>
     </>
   )
 }
