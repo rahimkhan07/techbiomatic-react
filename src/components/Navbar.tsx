@@ -117,8 +117,6 @@ export default function Navbar() {
             <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: '0', flex: 1, justifyContent: 'center' }}>
               {navLinks.map((link) => (
                 <div key={link.href} className="relative"
-                  onMouseEnter={() => setActiveDropdown(link.label)}
-                  onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <Link
                     to={link.href}

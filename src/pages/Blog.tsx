@@ -155,7 +155,7 @@ export default function Blog() {
                 <button key={cat} onClick={() => setActiveCategory(cat)}
                   style={{
                     padding: '7px 18px', borderRadius: '100px', fontSize: '13px',
-                    fontWeight: 500, cursor: 'pointer', border: 'none',
+                    fontWeight: 500, cursor: 'pointer',
                     background: activeCategory === cat ? '#DC2626' : '#fff',
                     color: activeCategory === cat ? '#fff' : '#6B7280',
                     border: activeCategory === cat ? 'none' : '1px solid #E5E7EB',
