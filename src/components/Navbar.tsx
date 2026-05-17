@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown, Mail, MapPin } from 'lucide-react'
+import { Menu, X, Mail, MapPin } from 'lucide-react'
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -15,7 +15,6 @@ const navLinks = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const location = useLocation()
 
   useEffect(() => {
