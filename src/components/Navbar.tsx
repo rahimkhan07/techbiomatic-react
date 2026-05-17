@@ -37,33 +37,45 @@ export default function Navbar() {
     >
       {/* ══ TOP INFO BAR — red ══════════════════════════════ */}
       <div style={{ background: '#DC2626' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '38px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: '38px', gap: '8px' }}>
 
-            {/* Left: email + address + phone */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            {/* Left: contact info — responsive */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', overflow: 'hidden', flex: 1, minWidth: 0 }}>
+
+              {/* Email — always visible */}
               <a href="mailto:info@techbiomatic.ae"
-                style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#fff', fontSize: '12px', textDecoration: 'none' }}>
+                style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#fff', fontSize: '12px', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>
                 <Mail size={12} />
-                info@techbiomatic.ae
+                <span className="hidden sm:inline">info@techbiomatic.ae</span>
+                <span className="sm:hidden">Email</span>
               </a>
-              <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>|</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#fff', fontSize: '12px' }}>
-                <MapPin size={12} />
-                6th Floor, Meydan Grandstand, Nad Al Sheba, Dubai, UAE
+
+              {/* Separator — hidden on mobile */}
+              <span className="hidden md:inline" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>|</span>
+
+              {/* Address — hidden on mobile, shortened on tablet */}
+              <span className="hidden md:flex" style={{ alignItems: 'center', gap: '5px', color: '#fff', fontSize: '12px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>
+                <MapPin size={12} style={{ flexShrink: 0 }} />
+                <span className="hidden lg:inline">6th Floor, Meydan Grandstand, Nad Al Sheba, Dubai, UAE</span>
+                <span className="lg:hidden">Meydan Grandstand, Dubai, UAE</span>
               </span>
-              <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>|</span>
+
+              {/* Separator — hidden on mobile */}
+              <span className="hidden md:inline" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>|</span>
+
+              {/* Phone — always visible */}
               <a href="tel:+971526955656"
-                style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#fff', fontSize: '12px', textDecoration: 'none' }}>
-                <svg viewBox="0 0 24 24" style={{ width: 12, height: 12, fill: 'none', stroke: 'currentColor', strokeWidth: 2 }}>
+                style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#fff', fontSize: '12px', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                <svg viewBox="0 0 24 24" style={{ width: 12, height: 12, fill: 'none', stroke: 'currentColor', strokeWidth: 2, flexShrink: 0 }}>
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.06 6.06l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
                 +971 52 695 5656
               </a>
             </div>
 
-            {/* Right: social icons */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {/* Right: social icons — always visible, shrink-0 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
               {[
                 { label: 'Facebook', path: 'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z' },
                 { label: 'Twitter', path: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' },
@@ -71,7 +83,7 @@ export default function Navbar() {
                 { label: 'Instagram', isIG: true },
               ].map((s) => (
                 <a key={s.label} href="#" aria-label={s.label}
-                  style={{ width: '24px', height: '24px', borderRadius: '4px', background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', textDecoration: 'none' }}>
+                  style={{ width: '24px', height: '24px', borderRadius: '4px', background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', textDecoration: 'none', flexShrink: 0 }}>
                   {s.isYT ? (
                     <svg viewBox="0 0 24 24" style={{ width: 13, height: 13, fill: 'currentColor' }}>
                       <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" /><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#DC2626" />
