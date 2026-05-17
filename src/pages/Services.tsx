@@ -64,15 +64,6 @@ const services = [
   },
 ]
 
-const technologies = [
-  { name: 'AWS', category: 'Cloud' }, { name: 'Azure', category: 'Cloud' }, { name: 'Google Cloud', category: 'Cloud' },
-  { name: 'React', category: 'Frontend' }, { name: 'Next.js', category: 'Frontend' }, { name: 'Node.js', category: 'Backend' },
-  { name: 'Python', category: 'AI/ML' }, { name: 'TensorFlow', category: 'AI/ML' }, { name: 'PyTorch', category: 'AI/ML' },
-  { name: 'Kubernetes', category: 'DevOps' }, { name: 'Docker', category: 'DevOps' }, { name: 'Terraform', category: 'DevOps' },
-  { name: 'SAP', category: 'Enterprise' }, { name: 'Salesforce', category: 'Enterprise' }, { name: 'Oracle', category: 'Enterprise' },
-  { name: 'PostgreSQL', category: 'Database' }, { name: 'MongoDB', category: 'Database' }, { name: 'Redis', category: 'Database' },
-  { name: 'Cisco', category: 'Network' }, { name: 'Palo Alto', category: 'Security' },
-]
 
 const faqs = [
   { q: 'What industries does Techbiomatic serve?', a: 'We serve a wide range of industries including construction, healthcare, oil & gas, government, manufacturing, logistics, real estate, and smart cities. Our solutions are tailored to the specific needs and regulations of each sector.' },
@@ -232,44 +223,6 @@ export default function Services() {
                 </div>
                 <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#111827', marginBottom: '8px' }}>{step.title}</h3>
                 <p style={{ fontSize: '13px', color: '#6B7280', lineHeight: 1.7 }}>{step.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TECH STACK ───────────────────────────────────── */}
-      <section style={{ background: '#F9FAFB', padding: '80px 24px' }}>
-        <div style={W}>
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={VP} transition={{ duration: 0.5 }}
-            style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <span style={{ display: 'inline-flex', padding: '6px 16px', borderRadius: '100px', fontSize: '11px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', background: '#FFEBEB', border: '1px solid rgba(220,38,38,0.25)', color: '#DC2626', marginBottom: '16px' }}>
-              Technology Stack
-            </span>
-            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', fontWeight: 700, color: '#111827', marginBottom: '12px' }}>
-              Powered by Industry-Leading <span style={{ color: '#DC2626' }}>Technologies</span>
-            </h2>
-            {divider}
-          </motion.div>
-
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '12px' }}>
-            {technologies.map((tech, i) => (
-              <motion.div key={tech.name}
-                initial={{ opacity: 0, scale: 0.85 }} whileInView={{ opacity: 1, scale: 1 }}
-                viewport={VP} transition={{ duration: 0.3, delay: i * 0.03 }}
-                style={{
-                  background: '#fff', border: '1px solid #E5E7EB', borderRadius: '8px',
-                  padding: '10px 16px', display: 'flex', alignItems: 'center', gap: '8px',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)', cursor: 'default',
-                  transition: 'border-color 0.2s, box-shadow 0.2s',
-                }}
-                whileHover={{ borderColor: '#FECACA', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
-              >
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#DC2626', flexShrink: 0 }} />
-                <span style={{ fontSize: '13px', fontWeight: 600, color: '#374151' }}>{tech.name}</span>
-                <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '100px', background: '#FFEBEB', color: '#DC2626', fontWeight: 600 }}>
-                  {tech.category}
-                </span>
               </motion.div>
             ))}
           </div>
