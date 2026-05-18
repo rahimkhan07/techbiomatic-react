@@ -2,10 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Techbiomatic Middle East L.L.C-FZ is a premier Dubai-based technology and engineering company delivering AI automation, IT solutions, cloud services, and enterprise digital transformation across the UAE and Middle East." />
+
+    <!-- Primary Meta -->
     <title>TechBioMatic Technology for Humans | Lab Equipment & Scientific Solutions</title>
+    <meta name="description" content="TECHBIOMATIC supplies premium laboratory equipment, biomedical devices, scientific instruments, and consumables to research institutions, hospitals, and academic facilities worldwide." />
+    <meta name="keywords" content="laboratory equipment, biomedical devices, scientific instruments, hematology analyzer, micropipette, lab consumables, Dubai, UAE" />
+    <meta name="author" content="TechBioMatic" />
+    <meta name="theme-color" content="#DC2626" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="TechBioMatic" />
+    <meta name="application-name" content="TechBioMatic" />
+    <meta name="msapplication-TileColor" content="#DC2626" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="TechBioMatic – Technology for Humans" />
+    <meta property="og:description" content="Premium laboratory equipment, biomedical devices, and scientific instruments worldwide." />
+    <meta property="og:image" content="/logo.png" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -13,5 +38,20 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Register Service Worker -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function (reg) {
+              console.log('SW registered:', reg.scope)
+            })
+            .catch(function (err) {
+              console.log('SW registration failed:', err)
+            })
+        })
+      }
+    </script>
   </body>
 </html>
