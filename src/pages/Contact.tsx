@@ -23,11 +23,6 @@ const contactInfo = [
   },
 ]
 
-const services = [
-  'Laboratory Equipment', 'Scientific Equipment', 'Biomedical Equipment',
-  'Laboratory Consumables', 'Scientific Software', 'Other',
-]
-
 const VP = { once: true, margin: '0px 0px -60px 0px' }
 const W: React.CSSProperties = { maxWidth: '960px', margin: '0 auto', padding: '0 24px' }
 const divider = <div style={{ width: '56px', height: '4px', background: '#DC2626', borderRadius: '2px', margin: '0 auto 24px' }} />
