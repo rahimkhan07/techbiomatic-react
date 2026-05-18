@@ -2,12 +2,6 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Send, CheckCircle } from 'lucide-react'
 
-const serviceOptions = [
-  'IT Solutions', 'Engineering Consultancy', 'AI & Automation',
-  'Cloud Services', 'Cybersecurity', 'Data Analytics',
-  'Smart Infrastructure', 'Enterprise Solutions', 'Other',
-]
-
 const VP = { once: true, margin: '0px 0px -60px 0px' }
 
 const inputStyle: React.CSSProperties = {
@@ -23,7 +17,7 @@ const labelStyle: React.CSSProperties = {
 }
 
 export default function RequestService() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', company: '', service: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', company: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -35,11 +29,11 @@ export default function RequestService() {
     setSubmitted(true)
   }
 
-  const focusStyle = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const focusStyle = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.target.style.borderColor = '#DC2626'
     e.target.style.boxShadow = '0 0 0 3px rgba(220,38,38,0.1)'
   }
-  const blurStyle = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const blurStyle = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.target.style.borderColor = '#E5E7EB'
     e.target.style.boxShadow = 'none'
   }
@@ -166,17 +160,6 @@ export default function RequestService() {
                     value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })}
                     onFocus={focusStyle} onBlur={blurStyle} />
                 </div>
-              </div>
-
-              {/* Service */}
-              <div style={{ marginBottom: '20px' }}>
-                <label style={labelStyle}>Service of Interest</label>
-                <select style={{ ...inputStyle, cursor: 'pointer' }}
-                  value={form.service} onChange={(e) => setForm({ ...form, service: e.target.value })}
-                  onFocus={focusStyle} onBlur={blurStyle}>
-                  <option value="" disabled>Select a service...</option>
-                  {serviceOptions.map((s) => <option key={s} value={s}>{s}</option>)}
-                </select>
               </div>
 
               {/* Message */}

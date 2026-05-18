@@ -3,11 +3,7 @@ import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock, MessageCircle, Send, CheckCircle } from 'lucide-react'
 
 const contactInfo = [
-  {
-    icon: MapPin,
-    title: 'Office Address',
-    lines: ['6th Floor, Meydan Grandstand', 'Meydan Road, Nad Al Sheba', 'Dubai, United Arab Emirates'],
-  },
+  
   {
     icon: Phone,
     title: 'Phone',
@@ -17,8 +13,8 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email',
-    lines: ['info@techbiomatic.ae'],
-    href: 'mailto:info@techbiomatic.ae',
+    lines: ['info@techbiomatic.com'],
+    href: 'mailto:info@techbiomatic.com',
   },
   {
     icon: Clock,
@@ -279,7 +275,7 @@ export default function Contact() {
                         </div>
                       </div>
 
-                      <div>
+                      {/* <div>
                         <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Service of Interest</label>
                         <select style={{ ...inputStyle, cursor: 'pointer' }}
                           value={formData.service} onChange={(e) => setFormData({ ...formData, service: e.target.value })}
@@ -287,7 +283,7 @@ export default function Contact() {
                           <option value="" disabled>Select a service...</option>
                           {services.map((s) => <option key={s} value={s}>{s}</option>)}
                         </select>
-                      </div>
+                      </div> */}
 
                       <div>
                         <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>
