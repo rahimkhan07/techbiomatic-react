@@ -195,7 +195,7 @@ export default function Footer() {
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#4B5563')}
               >
                 <Mail size={15} color="#DC2626" style={{ marginTop: '2px', flexShrink: 0 }} />
-                info@techbiomatic.ae
+                info@techbiomatic.com
               </a>
 
               {/* Phone */}
