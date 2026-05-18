@@ -54,7 +54,7 @@ export default function Careers() {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <span className="tag mb-6 inline-flex">Careers</span>
             <h1 className="font-black text-gray-900 mb-6 leading-tight" style={{ fontSize: 'clamp(1.8rem, 6vw, 3.5rem)' }}>
-              Build the Future <span className="gradient-text-gold">With Us</span>
+              Build the Future <span className="gradient-text">With Us</span>
             </h1>
             <p className="text-gray-500 text-lg leading-relaxed max-w-3xl mx-auto">
               Join a team of passionate technologists and engineers shaping the digital future of the Middle East. We're always looking for exceptional talent.

@@ -33,7 +33,7 @@ export default function Projects() {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <span className="tag mb-6 inline-flex">Our Projects</span>
             <h1 className="font-black text-gray-900 mb-6 leading-tight" style={{ fontSize: 'clamp(1.8rem, 6vw, 3.5rem)' }}>
-              Delivering <span className="gradient-text-gold">Impactful</span> Solutions
+              Delivering <span className="gradient-text">Impactful</span> Solutions
             </h1>
             <p className="text-gray-500 text-lg leading-relaxed max-w-3xl mx-auto">
               A portfolio of transformative technology and engineering projects delivered across the UAE and Middle East. Each project represents our commitment to excellence and measurable outcomes.

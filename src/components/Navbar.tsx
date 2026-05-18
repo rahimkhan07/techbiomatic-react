@@ -8,7 +8,7 @@ const navLinks = [
   { label: 'About us', href: '/about' },
   { label: 'Our Products', href: '/services' },
   { label: 'Blogs', href: '/blog' },
-  { label: 'FAQ', href: '/contact' },
+  { label: 'FAQ', href: '/contact#faq' },
   { label: 'Contact us', href: '/contact' },
 ]
 
@@ -114,9 +114,10 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop nav links — centered */}
-            <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: '0', flex: 1, justifyContent: 'center' }}>
+            <nav className="hidden lg:flex" style={{ alignItems: 'stretch', gap: '0', flex: 1, justifyContent: 'center', height: '68px' }}>
               {navLinks.map((link) => (
                 <div key={link.href} className="relative"
+                  style={{ display: 'flex', alignItems: 'center', position: 'relative' }}
                 >
                   <Link
                     to={link.href}
@@ -124,19 +125,30 @@ export default function Navbar() {
                       display: 'flex', alignItems: 'center', gap: '4px',
                       padding: '0 18px', height: '68px', fontSize: '14px', fontWeight: 500,
                       textDecoration: 'none', whiteSpace: 'nowrap',
-                      borderBottom: location.pathname === link.href ? '3px solid #DC2626' : '3px solid transparent',
                       color: location.pathname === link.href ? '#DC2626' : '#374151',
-                      transition: 'color 0.2s, border-color 0.2s',
+                      transition: 'color 0.2s',
+                      position: 'relative',
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.color = '#DC2626'; e.currentTarget.style.borderBottomColor = '#DC2626' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = '#DC2626' }}
                     onMouseLeave={(e) => {
                       if (location.pathname !== link.href) {
                         e.currentTarget.style.color = '#374151'
-                        e.currentTarget.style.borderBottomColor = 'transparent'
                       }
                     }}
                   >
                     {link.label}
+                    {/* Active / hover underline — only as wide as the text */}
+                    <span style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: '18px',
+                      right: '18px',
+                      height: '3px',
+                      borderRadius: '3px 3px 0 0',
+                      background: '#DC2626',
+                      opacity: location.pathname === link.href ? 1 : 0,
+                      transition: 'opacity 0.2s',
+                    }} />
                   </Link>
                 </div>
               ))}

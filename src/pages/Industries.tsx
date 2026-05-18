@@ -25,7 +25,7 @@ export default function Industries() {
             <span className="tag mb-6 inline-flex">Industries</span>
             <h1 className="font-black text-gray-900 mb-6 leading-tight" style={{ fontSize: 'clamp(1.8rem, 6vw, 3.5rem)' }}>
               Specialized Solutions for{' '}
-              <span className="gradient-text-gold">Every Industry</span>
+              <span className="gradient-text">Every Industry</span>
             </h1>
             <p className="text-gray-500 text-lg leading-relaxed max-w-3xl mx-auto">
               We understand that every industry has unique challenges and requirements. Our specialized teams deliver tailored technology solutions that address the specific needs of your sector.

@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { Phone, Mail, Clock, MessageCircle, Send, CheckCircle } from 'lucide-react'
 
 const contactInfo = [
-  
   {
     icon: Phone,
     title: 'Phone',
@@ -19,7 +18,7 @@ const contactInfo = [
   {
     icon: Clock,
     title: 'Business Hours',
-    lines: ['Monday – Friday: 9:00 AM – 6:00 PM', 'Saturday: 10:00 AM – 2:00 PM', 'Sunday: Closed'],
+    lines: ['Mon – Fri: 9:00 AM – 6:00 PM', 'Sat: 10:00 AM – 2:00 PM', 'Sunday: Closed'],
   },
 ]
 
@@ -36,7 +35,7 @@ const inputStyle: React.CSSProperties = {
 }
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', company: '', service: '', message: '' })
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', company: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -48,11 +47,11 @@ export default function Contact() {
     setSubmitted(true)
   }
 
-  const onFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const onFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.target.style.borderColor = '#DC2626'
     e.target.style.boxShadow = '0 0 0 3px rgba(220,38,38,0.1)'
   }
-  const onBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const onBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.target.style.borderColor = '#E5E7EB'
     e.target.style.boxShadow = 'none'
   }
@@ -87,43 +86,73 @@ export default function Contact() {
       {/* ── CONTACT INFO CARDS ───────────────────────────── */}
       <section style={{ background: '#F9FAFB', padding: '60px 24px' }}>
         <div style={W}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', marginBottom: '0' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '24px' }}>
             {contactInfo.map((item, i) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                viewport={VP} transition={{ duration: 0.4, delay: i * 0.08 }}
+                initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={VP} transition={{ duration: 0.4, delay: i * 0.1 }}
                 style={{
-                  background: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px',
-                  padding: '28px 20px', textAlign: 'center',
-                  boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
-                  transition: 'box-shadow 0.2s, border-color 0.2s',
-                  width: 'clamp(180px, 28vw, 220px)',
+                  background: '#fff',
+                  border: '1px solid #E5E7EB',
+                  borderRadius: '16px',
+                  padding: '32px 28px',
+                  textAlign: 'center',
+                  boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                  width: 'clamp(200px, 30vw, 240px)',
                   flexShrink: 0,
+                  position: 'relative',
+                  overflow: 'hidden',
+                  transition: 'box-shadow 0.25s, transform 0.25s, border-color 0.25s',
                 }}
-                whileHover={{ boxShadow: '0 4px 16px rgba(0,0,0,0.09)', borderColor: '#FECACA' }}
+                whileHover={{
+                  boxShadow: '0 8px 32px rgba(220,38,38,0.12)',
+                  y: -4,
+                  borderColor: '#FECACA',
+                }}
               >
+                {/* Top accent line */}
                 <div style={{
-                  width: '48px', height: '48px', borderRadius: '10px',
-                  background: '#FFEBEB', display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', margin: '0 auto 14px',
+                  position: 'absolute', top: 0, left: 0, right: 0, height: '3px',
+                  background: 'linear-gradient(90deg, #DC2626, #EF4444)',
+                  borderRadius: '16px 16px 0 0',
+                }} />
+
+                {/* Icon */}
+                <div style={{
+                  width: '56px', height: '56px', borderRadius: '14px',
+                  background: 'linear-gradient(135deg, #FFEBEB, #FEE2E2)',
+                  border: '1px solid #FECACA',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  margin: '0 auto 18px',
+                  boxShadow: '0 4px 12px rgba(220,38,38,0.15)',
                 }}>
-                  <item.icon size={22} color="#DC2626" />
+                  <item.icon size={24} color="#DC2626" />
                 </div>
-                <h3 style={{ color: '#111827', fontWeight: 700, fontSize: '14px', marginBottom: '8px' }}>
+
+                {/* Title */}
+                <h3 style={{
+                  color: '#111827', fontWeight: 700, fontSize: '15px',
+                  marginBottom: '10px', letterSpacing: '-0.01em',
+                }}>
                   {item.title}
                 </h3>
-                {item.lines.map((line) => (
-                  <div key={line} style={{ color: '#6B7280', fontSize: '13px', lineHeight: 1.6 }}>
-                    {item.href
-                      ? <a href={item.href} style={{ color: '#6B7280', textDecoration: 'none' }}
-                          onMouseEnter={(e) => (e.currentTarget.style.color = '#DC2626')}
-                          onMouseLeave={(e) => (e.currentTarget.style.color = '#6B7280')}
-                        >{line}</a>
-                      : line
-                    }
-                  </div>
-                ))}
+
+                {/* Lines */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  {item.lines.map((line) => (
+                    <div key={line} style={{ color: '#6B7280', fontSize: '13px', lineHeight: 1.5 }}>
+                      {item.href
+                        ? <a href={item.href}
+                            style={{ color: '#6B7280', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s' }}
+                            onMouseEnter={(e) => (e.currentTarget.style.color = '#DC2626')}
+                            onMouseLeave={(e) => (e.currentTarget.style.color = '#6B7280')}
+                          >{line}</a>
+                        : <span style={{ fontWeight: 400 }}>{line}</span>
+                      }
+                    </div>
+                  ))}
+                </div>
               </motion.div>
             ))}
           </div>
