@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { MapPin, Phone, Mail, Clock, MessageCircle, Send, CheckCircle } from 'lucide-react'
+import { Phone, Mail, Clock, MessageCircle, Send, CheckCircle } from 'lucide-react'
 
 const contactInfo = [
   
@@ -92,7 +92,7 @@ export default function Contact() {
       {/* ── CONTACT INFO CARDS ───────────────────────────── */}
       <section style={{ background: '#F9FAFB', padding: '60px 24px' }}>
         <div style={W}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px', marginBottom: '0' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', marginBottom: '0' }}>
             {contactInfo.map((item, i) => (
               <motion.div
                 key={item.title}
@@ -103,6 +103,8 @@ export default function Contact() {
                   padding: '28px 20px', textAlign: 'center',
                   boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
                   transition: 'box-shadow 0.2s, border-color 0.2s',
+                  width: 'clamp(180px, 28vw, 220px)',
+                  flexShrink: 0,
                 }}
                 whileHover={{ boxShadow: '0 4px 16px rgba(0,0,0,0.09)', borderColor: '#FECACA' }}
               >
