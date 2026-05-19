@@ -46,7 +46,7 @@ export default function Navbar() {
               <a href="mailto:info@techbiomatic.ae"
                 style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#fff', fontSize: '12px', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>
                 <Mail size={12} />
-                <span className="hidden sm:inline">info@techbiomatic.ae</span>
+                <span className="hidden sm:inline">info@techbiomatic.com</span>
                 <span className="sm:hidden">Email</span>
               </a>
 
