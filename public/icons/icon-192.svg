@@ -1,8 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
-  <rect width="192" height="192" rx="32" fill="#DC2626"/>
-  <!-- Bracket outline -->
-  <rect x="28" y="28" width="136" height="136" rx="12" fill="none" stroke="white" stroke-width="12"/>
-  <!-- Letter t -->
-  <rect x="88" y="44" width="16" height="104" rx="6" fill="white"/>
-  <rect x="52" y="72" width="88" height="16" rx="6" fill="white"/>
+  <rect width="192" height="192" rx="28" fill="#ffffff"/>
+  <!-- Top bar -->
+  <rect x="22" y="22" width="148" height="22" rx="6" fill="#DC2626"/>
+  <!-- Left bar -->
+  <rect x="22" y="22" width="22" height="148" rx="6" fill="#DC2626"/>
+  <!-- Right bar (partial) -->
+  <rect x="148" y="22" width="22" height="112" rx="6" fill="#DC2626"/>
+  <!-- t crossbar -->
+  <rect x="60" y="72" width="76" height="20" rx="6" fill="#DC2626"/>
+  <!-- t stem -->
+  <rect x="88" y="50" width="20" height="92" rx="8" fill="#DC2626"/>
+  <!-- t notch -->
+  <polygon points="88,50 108,50 108,64 88,74" fill="#DC2626"/>
 </svg>
